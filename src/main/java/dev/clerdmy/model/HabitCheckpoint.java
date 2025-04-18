@@ -1,12 +1,12 @@
 package dev.clerdmy.model;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 public class HabitCheckpoint {
 
     private int id;
     private int habitId;
-    private LocalDateTime checkpointDate;
+    private LocalDate checkpointDate;
     private boolean completed;
 
     public int getId() {
@@ -25,11 +25,11 @@ public class HabitCheckpoint {
         this.habitId = habitId;
     }
 
-    public LocalDateTime getCheckpointDate() {
+    public LocalDate getCheckpointDate() {
         return checkpointDate;
     }
 
-    public void setCheckpointDate(LocalDateTime checkpointDate) {
+    public void setCheckpointDate(LocalDate checkpointDate) {
         this.checkpointDate = checkpointDate;
     }
 
