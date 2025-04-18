@@ -1,13 +1,13 @@
 package dev.clerdmy.model;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 public class Habit {
 
     private int id;
     private int userId;
     private String title;
-    private LocalDateTime creationDate;
+    private LocalDate creationDate;
 
     public int getId() {
         return id;
@@ -33,11 +33,11 @@ public class Habit {
         this.title = title;
     }
 
-    public LocalDateTime getCreationDate() {
+    public LocalDate getCreationDate() {
         return creationDate;
     }
 
-    public void setCreationDate(LocalDateTime creationDate) {
+    public void setCreationDate(LocalDate creationDate) {
         this.creationDate = creationDate;
     }
 
