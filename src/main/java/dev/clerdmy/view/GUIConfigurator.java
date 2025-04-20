@@ -5,8 +5,10 @@ import java.awt.*;
 
 public class GUIConfigurator {
 
-    private static final Dimension sizeHalf = new Dimension(GUIConstants.MIN_WIDTH / 2, GUIConstants.SQUARE / 2);
-    private static final Dimension sizeFull = new Dimension(GUIConstants.MIN_WIDTH / 2, GUIConstants.SQUARE);
+    private static final Dimension sizeHalf = new Dimension(GUIConstants.DEFAULT_WIDTH / 4 + GUIConstants.SIDEBAR / 2, GUIConstants.SQUARE / 2);
+    private static final Dimension sizeHalfLong = new Dimension(GUIConstants.DEFAULT_WIDTH / 3 + GUIConstants.DEFAULT_WIDTH / 4, GUIConstants.SQUARE / 2);
+    private static final Dimension sizeFull = new Dimension(GUIConstants.DEFAULT_WIDTH / 4 + GUIConstants.SIDEBAR / 2, GUIConstants.SQUARE);
+    private static final Dimension sizeFullLong = new Dimension(GUIConstants.DEFAULT_WIDTH / 3 + GUIConstants.DEFAULT_WIDTH / 4, GUIConstants.SQUARE);
     private static final Dimension sidebar = new Dimension(GUIConstants.SIDEBAR, GUIConstants.SQUARE);
 
     protected static void configureTitle(JLabel title) {
@@ -26,6 +28,12 @@ public class GUIConfigurator {
         textField.setAlignmentX(Component.CENTER_ALIGNMENT);
     }
 
+    protected static void configureTextFieldLong(RoundedField<? extends JComponent> textField) {
+        configureTextField(textField);
+        textField.setPreferredSize(sizeFullLong);
+        textField.setMaximumSize(sizeFullLong);
+    }
+
     protected static void configureText(JLabel text) {
         text.setPreferredSize(sizeHalf);
         text.setMaximumSize(sizeHalf);
@@ -33,6 +41,12 @@ public class GUIConfigurator {
         text.setFont(GUIConstants.HINT_FONT);
         text.setHorizontalAlignment(SwingConstants.CENTER);
         text.setAlignmentX(Component.CENTER_ALIGNMENT);
+    }
+
+    protected static void configureTextLong(JLabel text) {
+        configureText(text);
+        text.setPreferredSize(sizeHalfLong);
+        text.setMaximumSize(sizeHalfLong);
     }
 
     protected static void configureButton(RoundedButton button) {
@@ -43,6 +57,12 @@ public class GUIConfigurator {
         button.setForeground(GUIConstants.WHITE);
         button.setFont(GUIConstants.MAIN_FONT_BOLD);
         button.setAlignmentX(Component.CENTER_ALIGNMENT);
+    }
+
+    protected static void configureButtonLong(RoundedButton button) {
+        configureButton(button);
+        button.setPreferredSize(sizeFullLong);
+        button.setMaximumSize(sizeFullLong);
     }
 
     protected static void configureSquareButton(RoundedButton button) {

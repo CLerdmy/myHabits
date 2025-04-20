@@ -5,9 +5,9 @@ import java.awt.*;
 public class GUIConstants {
 
     public static final int ANGLE = 15;
-    public static final int MIN_WIDTH = 600;
-    public static final int MIN_HEIGHT = 700;
-    public static final int DEFAULT_WIDTH = 700;
+    public static final int MIN_FRAME_WIDTH = 750;
+    public static final int MIN_FRAME_HEIGHT = 700;
+    public static final int DEFAULT_WIDTH = 600;
     public static final int DEFAULT_HEIGHT = 750;
     public static final int TEXT_INSETS = 10;
     public static final int SQUARE = 40;

@@ -13,10 +13,9 @@ public class MainFrame extends JFrame {
     private MainFrame() {
 
         setUndecorated(false);
-        setSize(GUIConstants.DEFAULT_WIDTH, GUIConstants.DEFAULT_HEIGHT);
-        setLocationRelativeTo(null);
+        setMinimumSize(new Dimension(GUIConstants.MIN_FRAME_WIDTH, GUIConstants.MIN_FRAME_HEIGHT));
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setMinimumSize(new Dimension(GUIConstants.MIN_WIDTH, GUIConstants.MIN_HEIGHT));
+        setLocationRelativeTo(null);
 
         cardLayout = new CardLayout();
         panel = new JPanel(cardLayout);
