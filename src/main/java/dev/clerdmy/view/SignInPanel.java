@@ -83,9 +83,11 @@ public class SignInPanel extends JPanel implements SessionListener {
 
     @Override
     public void sessionChanged(User newUser) {
-        if (!hint.getText().isEmpty()) hint.setText("");
-        if (!loginField.getText().isEmpty()) loginField.setText("");
-        if (!passwordField.getText().isEmpty()) passwordField.setText("");
+        SwingUtilities.invokeLater(() -> {
+            if (!hint.getText().isEmpty()) hint.setText("");
+            if (!loginField.getText().isEmpty()) loginField.setText("");
+            if (!passwordField.getText().isEmpty()) passwordField.setText("");
+        });
     }
 
 }

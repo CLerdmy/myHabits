@@ -99,11 +99,13 @@ public class SignUpPanel extends JPanel implements SessionListener {
 
     @Override
     public void sessionChanged(User newUser) {
-        if (!hint.getText().isEmpty()) hint.setText("");
-        if (!nameField.getText().isEmpty()) nameField.setText("");
-        if (!emailField.getText().isEmpty()) emailField.setText("");
-        if (!passwordField.getText().isEmpty()) passwordField.setText("");
-        if (!confirmPasswordField.getText().isEmpty()) confirmPasswordField.setText("");
+        SwingUtilities.invokeLater(() -> {
+            if (!hint.getText().isEmpty()) hint.setText("");
+            if (!nameField.getText().isEmpty()) nameField.setText("");
+            if (!emailField.getText().isEmpty()) emailField.setText("");
+            if (!passwordField.getText().isEmpty()) passwordField.setText("");
+            if (!confirmPasswordField.getText().isEmpty()) confirmPasswordField.setText("");
+        });
     }
 
 }
