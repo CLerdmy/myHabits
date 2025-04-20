@@ -10,19 +10,31 @@ public class RoundedPasswordField extends RoundedField<JPasswordField> {
     public RoundedPasswordField(String placeholder) {
 
         super(new JPasswordField(), placeholder);
-        this.originalEchoChar = field.getEchoChar();
+        originalEchoChar = field.getEchoChar();
         setBorder(BorderFactory.createEmptyBorder(GUIConstants.TEXT_INSETS / 2, GUIConstants.TEXT_INSETS, GUIConstants.TEXT_INSETS / 2, GUIConstants.TEXT_INSETS));
 
     }
 
     @Override
     public void setText(String text) {
-        field.setText(text);
+        if (text == null || text.isEmpty()) {
+            showPlaceholder();
+        } else {
+            showingPlaceholder = false;
+            setRawText(text);
+            applyEchoChar(originalEchoChar);
+            applyForeground(textColor);
+        }
     }
 
     @Override
     public String getText() {
         return showingPlaceholder ? "" : new String(field.getPassword());
+    }
+
+    @Override
+    protected void setRawText(String text) {
+        field.setText(text);
     }
 
     @Override
@@ -38,6 +50,7 @@ public class RoundedPasswordField extends RoundedField<JPasswordField> {
     @Override
     public void setEchoChar(char c) {
         this.originalEchoChar = c;
+        if (!showingPlaceholder) field.setEchoChar(c);
     }
 
     @Override

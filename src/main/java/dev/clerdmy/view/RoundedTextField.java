@@ -14,12 +14,23 @@ public class RoundedTextField extends RoundedField<JTextField> {
 
     @Override
     public void setText(String text) {
-        field.setText(text);
+        if (text == null || text.isEmpty()) {
+            showPlaceholder();
+        } else {
+            showingPlaceholder = false;
+            setRawText(text);
+            applyForeground(textColor);
+        }
     }
 
     @Override
     public String getText() {
         return showingPlaceholder ? "" : field.getText();
+    }
+
+    @Override
+    protected void setRawText(String text) {
+        field.setText(text);
     }
 
     @Override

@@ -4,15 +4,15 @@ import javax.swing.*;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import java.awt.*;
+import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
-import java.awt.event.FocusListener;
 
 public abstract class RoundedField<T extends JComponent> extends JComponent {
 
-    protected final String placeholder;
-    protected Color placeholderColor;
-    protected Color textColor;
-    protected boolean showingPlaceholder;
+    protected String placeholder;
+    protected Color placeholderColor = Color.GRAY;
+    protected Color textColor = Color.BLACK;
+    protected boolean showingPlaceholder = true;
 
     protected final T field;
 
@@ -23,20 +23,20 @@ public abstract class RoundedField<T extends JComponent> extends JComponent {
 
         setLayout(new BorderLayout());
         add(field, BorderLayout.CENTER);
-
         field.setBorder(BorderFactory.createEmptyBorder());
         field.setOpaque(false);
 
+        initListeners();
         showPlaceholder();
 
-        field.addFocusListener(new FocusListener() {
+    }
+
+    private void initListeners() {
+        field.addFocusListener(new FocusAdapter() {
             @Override
             public void focusGained(FocusEvent e) {
                 if (showingPlaceholder) {
-                    setText("");
-                    applyEchoChar(getOriginalEchoChar());
-                    applyForeground(getTextColor());
-                    showingPlaceholder = false;
+                    clearPlaceholder();
                 }
             }
 
@@ -44,63 +44,64 @@ public abstract class RoundedField<T extends JComponent> extends JComponent {
             public void focusLost(FocusEvent e) {
                 if (getText().isEmpty()) {
                     showPlaceholder();
-                } else {
-                    applyForeground(getTextColor());
                 }
             }
         });
 
-        if (field instanceof JTextField) {
-            ((JTextField) field).getDocument().addDocumentListener(new DocumentListener() {
-                @Override public void insertUpdate(DocumentEvent e) { checkForText(); }
-                @Override public void removeUpdate(DocumentEvent e) { checkForText(); }
-                @Override public void changedUpdate(DocumentEvent e) { checkForText(); }
+        if (field instanceof JTextField textField) {
+            textField.getDocument().addDocumentListener(new DocumentListener() {
+                public void insertUpdate(DocumentEvent e) { handleTextChange(); }
+                public void removeUpdate(DocumentEvent e) { handleTextChange(); }
+                public void changedUpdate(DocumentEvent e) { handleTextChange(); }
 
-                private void checkForText() {
-                    if (!getText().isEmpty() && showingPlaceholder) {
-                        showingPlaceholder = false;
-                        applyForeground(getTextColor());
-                    } else if (getText().isEmpty() && !field.hasFocus()) {
-                        showPlaceholder();
-                    } else {
-                        applyForeground(getTextColor());
+                private void handleTextChange() {
+                    if (!showingPlaceholder) {
+                        applyForeground(textColor);
                     }
                 }
             });
         }
     }
 
-    protected void applyForeground(Color color) {
-        field.setForeground(color);
-    }
-
-    public void setForeground(Color color) {
-        field.setForeground(color);
-        this.textColor = color;
-    }
-
-    protected Color getTextColor() {
-        return textColor;
-    }
-
-    protected void showPlaceholder() {
-        if (getText().isEmpty() && !showingPlaceholder) {
-            SwingUtilities.invokeLater(() -> {
-                setText(placeholder);
-                applyEchoChar((char) 0);
-                field.setForeground(getPlaceholderColor());
-                showingPlaceholder = true;
-            });
+    public void setPlaceholder(String placeholder) {
+        this.placeholder = placeholder;
+        if (getText().isEmpty() || showingPlaceholder) {
+            showPlaceholder();
         }
     }
 
-    public Color getPlaceholderColor() {
-        return placeholderColor;
+    protected void showPlaceholder() {
+        SwingUtilities.invokeLater(() -> {
+            setRawText(placeholder);
+            applyEchoChar((char) 0);
+            applyForeground(placeholderColor);
+            showingPlaceholder = true;
+            repaint();
+        });
     }
 
-    public void setPlaceholderColor(Color placeholderColor) {
-        this.placeholderColor = placeholderColor;
-        applyForeground(placeholderColor);
+    protected void clearPlaceholder() {
+        SwingUtilities.invokeLater(() -> {
+            setRawText("");
+            applyEchoChar(getOriginalEchoChar());
+            applyForeground(textColor);
+            showingPlaceholder = false;
+            repaint();
+        });
+    }
+
+    public void setPlaceholderColor(Color color) {
+        this.placeholderColor = color;
+        if (showingPlaceholder) applyForeground(color);
+    }
+
+    public void setForeground(Color color) {
+        this.textColor = color;
+        if (!showingPlaceholder) applyForeground(color);
+    }
+
+    protected void applyForeground(Color color) {
+        field.setForeground(color);
     }
 
     @Override
@@ -114,11 +115,18 @@ public abstract class RoundedField<T extends JComponent> extends JComponent {
         return RoundedPainter.containsRounded(this, x, y);
     }
 
-    public abstract void setFont(Font font);
     public abstract void setEchoChar(char c);
+
+    public abstract void setFont(Font font);
+
     public abstract void setText(String text);
+
     public abstract String getText();
+
+    protected abstract void setRawText(String text);
+
     protected abstract void applyEchoChar(char c);
+
     protected abstract char getOriginalEchoChar();
 
 }
