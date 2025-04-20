@@ -49,17 +49,17 @@ public class UserService {
         if (!ValidationUtils.isValidEmail(email)) return new AuthenticationResult(null, AuthenticationStatus.INVALID_EMAIL);
         if (userDao.getByEmail(email).isPresent()) return new AuthenticationResult(null, AuthenticationStatus.EMAIL_ALREADY_EXISTS);
 
-        User newUser = new User();
-        newUser.setId(user.getId());
+        User updatedUser = new User();
+        updatedUser.setId(user.getId());
         assert name != null;
-        newUser.setUsername(name.isEmpty() ? user.getUsername() : name);
+        updatedUser.setUsername(name.isEmpty() ? user.getUsername() : name);
         assert email != null;
-        newUser.setEmail(email.isEmpty() ? user.getEmail() : email);
+        updatedUser.setEmail(email.isEmpty() ? user.getEmail() : email);
         assert newPassword != null;
-        newUser.setPassword(newPassword.isEmpty() ? user.getPassword() : newPassword);
+        updatedUser.setPassword(newPassword.isEmpty() ? user.getPassword() : newPassword);
 
-        boolean success = userDao.update(newUser);
-        return success ? new AuthenticationResult(newUser, AuthenticationStatus.SUCCESS) : new AuthenticationResult(null, AuthenticationStatus.ERROR);
+        boolean success = userDao.update(updatedUser);
+        return success ? new AuthenticationResult(updatedUser, AuthenticationStatus.SUCCESS) : new AuthenticationResult(null, AuthenticationStatus.ERROR);
     }
 
 }
