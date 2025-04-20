@@ -10,6 +10,7 @@ public enum AuthenticationStatus {
     EMAIL_ALREADY_EXISTS,
     INVALID_EMAIL,
     INCORRECT,
+    EMPTY,
     ERROR
 
 }
