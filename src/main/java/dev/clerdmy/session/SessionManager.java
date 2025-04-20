@@ -37,6 +37,14 @@ public class SessionManager {
         return result.status();
     }
 
+    public static AuthenticationStatus update(String name, String email, String newPassword, String currentPassword) {
+        AuthenticationResult result = userService.updateUser(currentUser, name, email, newPassword, currentPassword);
+        if (result.isSuccess()) {
+            currentUser = result.user();
+        }
+        return result.status();
+    }
+
     public static User getCurrentUser() {
         return currentUser;
     }
