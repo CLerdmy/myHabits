@@ -31,6 +31,7 @@ public class UserService {
     }
 
     public AuthenticationResult loginUser(String email, String password) {
+
         if (email == null || email.isEmpty()) return new AuthenticationResult(null, AuthenticationStatus.EMPTY_EMAIL);
         if (password == null || password.isEmpty()) return new AuthenticationResult(null, AuthenticationStatus.EMPTY_PASSWORD);
 
@@ -38,6 +39,27 @@ public class UserService {
         if (user.isEmpty() || !user.get().getPassword().equals(password)) return new AuthenticationResult(null, AuthenticationStatus.INCORRECT);
 
         return new AuthenticationResult(user.get(), AuthenticationStatus.SUCCESS);
+    }
+
+    public AuthenticationResult updateUser(User user, String name, String email, String newPassword, String currentPassword) {
+
+        if ((name == null || name.isEmpty()) && (email == null || email.isEmpty()) && (newPassword == null || newPassword.isEmpty())) return  new AuthenticationResult(null, AuthenticationStatus.EMPTY);
+        if (currentPassword == null || currentPassword.isEmpty()) return new AuthenticationResult(null, AuthenticationStatus.EMPTY_PASSWORD);
+        if (!currentPassword.equals(user.getPassword())) return new AuthenticationResult(null, AuthenticationStatus.MISMATCHING_PASSWORDS);
+        if (!ValidationUtils.isValidEmail(email)) return new AuthenticationResult(null, AuthenticationStatus.INVALID_EMAIL);
+        if (userDao.getByEmail(email).isPresent()) return new AuthenticationResult(null, AuthenticationStatus.EMAIL_ALREADY_EXISTS);
+
+        User newUser = new User();
+        newUser.setId(user.getId());
+        assert name != null;
+        newUser.setUsername(name.isEmpty() ? user.getUsername() : name);
+        assert email != null;
+        newUser.setEmail(email.isEmpty() ? user.getEmail() : email);
+        assert newPassword != null;
+        newUser.setPassword(newPassword.isEmpty() ? user.getPassword() : newPassword);
+
+        boolean success = userDao.update(newUser);
+        return success ? new AuthenticationResult(newUser, AuthenticationStatus.SUCCESS) : new AuthenticationResult(null, AuthenticationStatus.ERROR);
     }
 
 }
