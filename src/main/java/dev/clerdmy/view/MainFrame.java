@@ -29,7 +29,7 @@ public class MainFrame extends JFrame {
         panel.add(mainPanel, "MainPanel");
 
         add(panel);
-        cardLayout.show(panel, "MainPanel");
+        cardLayout.show(panel, "SignIn");
 
         setVisible(true);
     }
