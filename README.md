@@ -1,20 +1,20 @@
-Персональное десктопное приложение для отслеживания привычек/целей.
-## Используемые технологии
-**Java** — основной язык разработки.  
-**Swing** — для графического интерфейса.  
-**MySQL** — для хранения данных.  
-**JDBC** — для взаимодействия приложения с БД.  
-## Использование
-**Запуск через *Main* класс. Конфигурация с БД осуществляется через *config.properties* в resources. Представлен шаблон *config-template*.**  
-## Архитектура
-- **Model** - содержит POJO-классы, которые представляют данные (*Habit* — привычка/цель (название, дата создания), *HabitCheckpoint* — отметки выполнения, *User* — пользователь).  
-- **DAO** - реализует доступ к данным и SQL-запросы.  
-- **Service** - управляет процессами создания, редактирования и управлением запросов к DAO.  
-- **Session** - управляет текущей сессией пользователя.  
-- **Response** - поределяет структуры ответов (для *User* - авторизации).  
-- **Utils** - содержит *DatabaseConnector* для подключения к MySQL через JDBC, *Configurator* для загрузки конфигурации, *ValidationUtils* для валидации пользовательских данных.  
-- **View** - графический интерфейс через Swing.
-## ER-Диаграмма и графический интерфейс
+A personal desktop application for habit/goal tracking.
+## Technologies Used
+**Java** — main development language.  
+**Swing** — for the graphical user interface.  
+**MySQL** — for data storage.  
+**JDBC** — for application-to-database interaction.  
+## Usage
+**Launch via the** *Main* **class. Database configuration is done through** *config.properties* **located in the resources. A template is provided as** *config-template*.  
+## Architecture
+- **Model** - contains POJO classes representing data (*Habit* — a habit/goal (name, creation date), *HabitCheckpoint* — completion marks, *User* — user).    
+- **DAO** - implements data access and SQL queries.    
+- **Service** - manages the processes of creating, editing, and handling requests to DAO.  
+- **Session** - manages the current user session.  
+- **Response** - defines response structures (for *User* — authorization).  
+- **Utils** - contains *DatabaseConnector* for connecting to MySQL via JDBC, *Configurator* for loading configuration, *ValidationUtils* for validating user data.  
+- **View** - graphical interface built with Swing.
+## ER-Diagram and Graphical Interface
 ![Entity-Relationship Diagram](visual/erdiagram.png)
 ![login](visual/loginscreen.png)
 ![checkpoints](visual/checkpointsscreen.png)
