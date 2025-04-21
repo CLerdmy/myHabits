@@ -6,4 +6,6 @@ public interface SessionListener {
 
     void sessionChanged(User newUser);
 
+    default void habitsChanged(User currentUser) {}
+
 }
