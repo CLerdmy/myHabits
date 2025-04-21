@@ -25,5 +25,6 @@ public class GUIConstants {
     public static final Color LIGHTER_BLACK = new Color(50, 50, 50);
     public static final Color WHITE = new Color(250, 250, 250);
     public static final Color RED = new Color(250, 90, 90);
+    public static final Color GREEN = new Color(90, 180, 90);
 
 }

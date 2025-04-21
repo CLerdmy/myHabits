@@ -80,4 +80,11 @@ public class GUIConfigurator {
         button.setMaximumSize(sidebar);
     }
 
+    protected static void configureWhiteTextArea(RoundedTextArea textArea) {
+        textArea.setBackground(GUIConstants.WHITE);
+        textArea.getTextArea().setFont(GUIConstants.MAIN_FONT);
+        textArea.getTextArea().setForeground(GUIConstants.BLACK);
+        textArea.getTextArea().setBackground(GUIConstants.WHITE);
+    }
+
 }
