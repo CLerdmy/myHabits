@@ -14,3 +14,8 @@
 - **Response** - поределяет структуры ответов (для *User* - авторизации).  
 - **Utils** - содержит *DatabaseConnector* для подключения к MySQL через JDBC, *Configurator* для загрузки конфигурации, *ValidationUtils* для валидации пользовательских данных.  
 - **View** - графический интерфейс через Swing.
+## ER-Диаграмма и графический интерфейс
+![Entity-Relationship Diagram](visual/erdiagram.png)
+![login](visual/loginscreen.png)
+![checkpoints](visual/checkpointsscreen.png)
+![habits](visual/habitscreen.png)
