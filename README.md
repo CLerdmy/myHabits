@@ -4,6 +4,7 @@ A personal desktop application for habit/goal tracking.
 **Swing** — for the graphical user interface.  
 **MySQL** — for data storage.  
 **JDBC** — for application-to-database interaction.  
+**Maven** - for building the project.  
 ## Usage
 **Launch via the** *Main* **class. Database configuration is done through** *config.properties* **located in the resources. A template is provided as** *config-template*.  
 ## Architecture
